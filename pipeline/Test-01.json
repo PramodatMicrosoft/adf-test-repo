@@ -37,13 +37,19 @@
 				"inputs": [
 					{
 						"referenceName": "filesource",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "test"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "filesource",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "test"
+						}
 					}
 				]
 			}
