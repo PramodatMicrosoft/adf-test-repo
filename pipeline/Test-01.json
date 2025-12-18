@@ -14,7 +14,20 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "test",
+						"value": ""
+					},
+					{
+						"name": "Source",
+						"value": "@{'test'}//"
+					},
+					{
+						"name": "Destination",
+						"value": "@{'test'}//"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "BinarySource",
@@ -39,7 +52,10 @@
 						"referenceName": "filesource",
 						"type": "DatasetReference",
 						"parameters": {
-							"filename": "test"
+							"filename": {
+								"value": "@pipeline().parameters.SAP_Ariba_User_ID",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -57,6 +73,14 @@
 		"parameters": {
 			"filename": {
 				"type": "securestring"
+			},
+			"SAP_Ariba_User_ID": {
+				"type": "securestring"
+			}
+		},
+		"variables": {
+			"myvar": {
+				"type": "String"
 			}
 		},
 		"annotations": []
