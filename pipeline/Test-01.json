@@ -6,7 +6,14 @@
 			{
 				"name": "cp-data",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set Variables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -42,7 +49,8 @@
 					"sink": {
 						"type": "BinarySink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						}
 					},
 					"enableStaging": false
@@ -53,7 +61,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "@pipeline().parameters.SAP_Ariba_User_ID",
+								"value": "@pipeline().parameters.filename",
 								"type": "Expression"
 							}
 						}
@@ -64,10 +72,30 @@
 						"referenceName": "filesource",
 						"type": "DatasetReference",
 						"parameters": {
-							"filename": "test"
+							"filename": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							}
 						}
 					}
 				]
+			},
+			{
+				"name": "Set Variables",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "addvar",
+					"value": {
+						"value": "@add(int(pipeline().parameters.SAP_Ariba_User_ID), int(pipeline().parameters.test))",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -84,6 +112,9 @@
 		"variables": {
 			"myvar": {
 				"type": "String"
+			},
+			"addvar": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
