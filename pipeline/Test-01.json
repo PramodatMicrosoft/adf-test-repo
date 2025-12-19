@@ -76,6 +76,9 @@
 			},
 			"SAP_Ariba_User_ID": {
 				"type": "securestring"
+			},
+			"test": {
+				"type": "securestring"
 			}
 		},
 		"variables": {
